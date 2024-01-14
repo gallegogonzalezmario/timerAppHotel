@@ -49,23 +49,16 @@ public class TimerAppHotel extends Label {
     public void comienzaTemporizador(){
 
         KeyValue kv = new KeyValue(tiempo, 0);
-        KeyFrame kf = new KeyFrame(Duration.millis(tiempo.get() * 1000), event -> {
-            setText("Tiempo para reservar acabado.");
-            Platform.runLater(() -> {
-                Alert timeOut = new Alert(Alert.AlertType.WARNING);
-                timeOut.setTitle("Advertencia");
-                timeOut.setHeaderText("TIEMPO ACABADO");
-                timeOut.setContentText("SE HA ACABADO EL TIEMPO LÍMITE PARA LA RESERVA");
-                timeOut.showAndWait();
-                fireEvent(event);
-            });
-        }, kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(tiempo.get() * 1000), kv);
 
         tm.getKeyFrames().add(kf);
         tm.play();
     }
 
 
+    public void setOnFinished(EventHandler<ActionEvent> onFinished){
+        tm.setOnFinished(onFinished);
+    }
     public void pausarTemporizador(){
         tm.pause();
     }
